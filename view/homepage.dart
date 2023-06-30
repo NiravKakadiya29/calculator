@@ -3,7 +3,12 @@ import '/const/const.dart';
 const Color colorDark = Color(0xFF374352);
 const Color colorLight = Color(0xFFe6eeff);
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   bool darkMode = true;
 
   @override
@@ -20,15 +25,21 @@ class HomePage extends StatelessWidget {
                   child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  _switchMode(),
-                  30.heightBox,
+                  GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          darkMode ? darkMode = false : darkMode = true;
+                        });
+                      },
+                      child: _switchMode()),
+                  80.heightBox,
                   Align(
                     alignment: Alignment.centerRight,
                     child: '6.010'
                         .text
                         .bold
                         .size(55)
-                        .color(darkMode ? Colors.white : Colors.black)
+                        .color(darkMode ? Colors.white : Colors.red)
                         .make(),
                   ),
                   Row(
@@ -195,6 +206,30 @@ class HomePage extends StatelessWidget {
                   fontWeight: FontWeight.bold),
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget _switchMode() {
+    return NeuContainer(
+      darkMode: darkMode,
+      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+      borderRadius: BorderRadius.circular(40),
+      child: Container(
+        width: 70,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Icon(
+              Icons.wb_sunny,
+              color: darkMode ? Colors.grey : Colors.redAccent,
+            ),
+            Icon(
+              Icons.nightlight_round,
+              color: darkMode ? Colors.green : Colors.grey,
+            )
+          ],
         ),
       ),
     );
