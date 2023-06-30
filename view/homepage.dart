@@ -4,7 +4,7 @@ const Color colorDark = Color(0xFF374352);
 const Color colorLight = Color(0xFFe6eeff);
 
 class HomePage extends StatelessWidget {
-  bool darkMode = false;
+  bool darkMode = true;
 
   @override
   Widget build(BuildContext context) {
@@ -17,12 +17,103 @@ class HomePage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                color: Colors.red,
-                child: Text('Result'),
-              ),
+                  child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  _switchMode(),
+                  30.heightBox,
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: '6.010'
+                        .text
+                        .bold
+                        .size(55)
+                        .color(darkMode ? Colors.white : Colors.black)
+                        .make(),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      '='
+                          .text
+                          .size(35)
+                          .color(darkMode ? Colors.green : Colors.grey)
+                          .make(),
+                      '10+500*12'
+                          .text
+                          .size(35)
+                          .color(darkMode ? Colors.green : Colors.grey)
+                          .make(),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10,
+                  )
+                ],
+              )),
               Container(
                 child: Column(
                   children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        _buttonOval(title: 'sin'),
+                        _buttonOval(title: 'cos'),
+                        _buttonOval(title: 'tan'),
+                        _buttonOval(title: '%'),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        _buttonRounded(
+                            title: 'C',
+                            textColor:
+                                darkMode ? Colors.green : Colors.redAccent),
+                        _buttonRounded(title: '('),
+                        _buttonRounded(title: ')'),
+                        _buttonRounded(
+                            title: '/',
+                            textColor:
+                                darkMode ? Colors.green : Colors.redAccent),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        _buttonRounded(title: '7'),
+                        _buttonRounded(title: '8'),
+                        _buttonRounded(title: '9'),
+                        _buttonRounded(
+                            title: 'x',
+                            textColor:
+                                darkMode ? Colors.green : Colors.redAccent),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        _buttonRounded(title: '4'),
+                        _buttonRounded(title: '5'),
+                        _buttonRounded(title: '6'),
+                        _buttonRounded(
+                            title: '-',
+                            textColor:
+                                darkMode ? Colors.green : Colors.redAccent),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        _buttonRounded(title: '1'),
+                        _buttonRounded(title: '2'),
+                        _buttonRounded(title: '3'),
+                        _buttonRounded(
+                            title: '+',
+                            textColor:
+                                darkMode ? Colors.green : Colors.redAccent),
+                      ],
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -31,6 +122,10 @@ class HomePage extends StatelessWidget {
                         _buttonRounded(
                             icon: Icons.backspace_outlined,
                             iconColor:
+                                darkMode ? Colors.green : Colors.redAccent),
+                        _buttonRounded(
+                            title: '=',
+                            textColor:
                                 darkMode ? Colors.green : Colors.redAccent),
                       ],
                     )
@@ -45,27 +140,62 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _buttonRounded(
-      {String? title, double padding = 20, IconData? icon, Color? iconColor}) {
-    return NeuContainer(
-      darkMode: darkMode,
-      borderRadius: BorderRadius.circular(40),
-      padding: EdgeInsets.all(padding),
-      child: Container(
-        width: padding * 2,
-        height: padding * 2,
-        child: Center(
-            child: title != null
-                ? Text(
-                    '$title',
-                    style: TextStyle(
-                        color: darkMode ? Colors.white : Colors.black,
-                        fontSize: 30),
-                  )
-                : Icon(
-                    icon,
-                    color: iconColor,
-                    size: 30,
-                  )),
+      {String? title,
+      double padding = 17,
+      IconData? icon,
+      Color? iconColor,
+      Color? textColor}) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: NeuContainer(
+        darkMode: darkMode,
+        borderRadius: BorderRadius.circular(40),
+        padding: EdgeInsets.all(padding),
+        child: Container(
+          width: padding * 2,
+          height: padding * 2,
+          child: Center(
+              child: title != null
+                  ? Text(
+                      '$title',
+                      style: TextStyle(
+                          color: textColor != null
+                              ? textColor
+                              : darkMode
+                                  ? Colors.white
+                                  : Colors.black,
+                          fontSize: 30),
+                    )
+                  : Icon(
+                      icon,
+                      color: iconColor,
+                      size: 30,
+                    )),
+        ),
+      ),
+    );
+  }
+
+  Widget _buttonOval({String? title, double padding = 17}) {
+    return Padding(
+      padding: EdgeInsets.all(10),
+      child: NeuContainer(
+        darkMode: darkMode,
+        borderRadius: BorderRadius.circular(50),
+        padding:
+            EdgeInsets.symmetric(horizontal: padding, vertical: padding / 2),
+        child: Container(
+          width: padding * 2,
+          child: Center(
+            child: Text(
+              '$title',
+              style: TextStyle(
+                  color: darkMode ? Colors.white : Colors.black,
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold),
+            ),
+          ),
+        ),
       ),
     );
   }
